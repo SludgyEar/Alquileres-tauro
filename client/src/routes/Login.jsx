@@ -1,22 +1,20 @@
 import React from "react";
 import "../styles/login.css";
+import DefaultLayout from "../layout/DefaultLayout";
 
 function Login() {
   return (
-    <div className="container-login">
-        <h1 className="title-login">Ingresa tu usuario y contraseña</h1>
-        <form >
-            <input type="text" name="username" />
-            <input type="password" name="password" />
-            <input type="submit" />
-        </form>
-        <footer className="footer-login">
-            <strong>
-                Registrar usuario
-                Alquileres Tauro: 442-123-4567
-            </strong>
-        </footer>
-    </div>
+    <DefaultLayout>
+      <form className="form">
+        <h1>Ingresa tu usuario y contraseña</h1>
+        <label>Usuario</label>
+        <input type="text" name="username" />
+
+        <label>Contraseña</label>
+        <input type="password" name="password" />
+        <button>Acceder</button>
+      </form>
+    </DefaultLayout>
   );
 }
 export default Login;

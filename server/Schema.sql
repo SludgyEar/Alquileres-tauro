@@ -45,7 +45,7 @@ Create table Salones(
 -- Crear la tabla Productos
 CREATE TABLE Productos (
     idProducto INT AUTO_INCREMENT PRIMARY KEY,
-    tipo ENUM('silla', 'mesa', 'salon', 'manteles') NOT NULL,
+    tipo ENUM('silla', 'mesa', 'salon', 'manteles') NOT NULL,	-- Alterada
     stock INT NOT NULL,
     precioUnitario NUMERIC(10, 2) NOT NULL
 );
@@ -67,6 +67,7 @@ CREATE TABLE USUARIOS(
     nombreUsr VARCHAR(25) NOT NULL,
     passwdUsr VARCHAR(64) NOT NULL
 );
+Select * from Usuarios;
 
 -- Trigger que inserta la contraseña encriptada
 DELIMITER //

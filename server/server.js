@@ -1,7 +1,8 @@
 import express from 'express'
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { createUser } from './database.js';
+import { createUser, authUser } from './database.js';
+import CryptoJS from 'crypto-js';
 
 
 const app = express();
@@ -17,4 +18,11 @@ app.post("/register", async (req, res) => {
   const {nombre, passwd} = req.body
   const createdUser = await createUser(nombre, passwd);
   res.status(201).send(createdUser);
+});
+//Login de un usuario -> Tiene que pasar la contraseña encriptada con sha256 para compararlas
+app.get("/login", async (req, res) => {
+  const {nombre, passwd} = req.body;
+  const encryptedPasswd = CryptoJS.SHA256(passwd).toString();
+  const user = await authUser(nombre, encryptedPasswd);
+  res.status(200).send(user);
 });

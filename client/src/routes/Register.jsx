@@ -9,23 +9,27 @@ const Register = () => {
   const navigate = useNavigate();
   const auth = useAuth();
 
-  const [user, setUser] = useState({});
-  const handleUser = (e) => {
-    setUser(prev => ({...prev, [e.target.name]:e.target.value}));
+  const [nombre, setNombre] = useState("");
+  const handleNombre = (e) => {
+    setNombre(e.target.value);
+  };
+  const [passwd, setPasswd] = useState("");
+  const handlePasswd = (e) => {
+    setPasswd(e.target.value);
   };
 
   useEffect(() => {
     if(auth.isAuth){
       navigate("/dashboard");
     }
-  }, [auth.isAuth ]);
+  }, [auth.isAuth, navigate]);
 
   const handleCreateUser = async(e) =>{
     e.preventDefault();
     try{
-      const res = await axios.post("http://localhost:8000/register", user);
+      const res = await axios.post("http://localhost:8000/register", {nombre, passwd});
       if(res.status === 201){
-        auth.handleUser(user);
+        auth.handleUser({nombre, passwd});
         auth.handleAuth(true);
       }
     }catch(err){}
@@ -36,11 +40,11 @@ const Register = () => {
       <form className="form" onSubmit={handleCreateUser}>
         <h1>Ingresa tu usuario y contraseña</h1>
         <label>Usuario</label>
-        <input type="text" name="username" onChange={handleUser}/>
+        <input type="text" name="username" onChange={handleNombre}/>
 
         <label>Contraseña</label>
-        <input type="password" name="password" onChange={handleUser}/>
-        <input type="submit" value={"Registar"} />
+        <input type="password" name="password" onChange={handlePasswd}/>
+        <input type="submit" value={"Registrar"}/>
       </form>
     </DefaultLayout>
     );

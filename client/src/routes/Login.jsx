@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../styles/login.css";
 import { useAuth } from "../Providers/AuthProvider";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import DefaultLayout from "../layout/DefaultLayout";
 
 function Login() {
   const auth = useAuth();
@@ -41,66 +42,42 @@ function Login() {
   const [shForm, setShForm] = useState(true);
 
   return (
+    <DefaultLayout>
+      {(shForm) ? (
+        <div className="login-box">
+          <h1>Iniciar Sesión</h1>
+          <form onSubmit={handleLogin}>
+            <label htmlFor="username">username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Ingresa tu usuario"
+              required
+              onChange={handleNombre}
+            />
 
-    <div>
+            <label htmlFor="password">Contraseña</label>
+            <input
+              type="password"
+              id="password"
+              name="passwd"
+              placeholder="Ingresa tu contraseña"
+              required
+              onChange={handlePasswd}
+            />
 
-      <header className="header">
-        <div className="logo">
-          <Link to="/">Alquileres Tauro</Link>
+            <button type="submit">Iniciar sesión</button>
+          </form>
         </div>
-
-      </header>
-
-
-      <main className="main">
-        
-
-        {(shForm) ? (
-            <div className="login-box">
-              <h1>Iniciar Sesión</h1>
-              <form onSubmit={handleLogin}>
-                <label htmlFor="username">username</label>
-                <input
-                  type="text"
-                  id="username"
-                  name="username"
-                  placeholder="Ingresa tu usuario"
-                  required
-                  onChange={handleNombre}
-                />
-
-                <label htmlFor="password">Contraseña</label>
-                <input
-                  type="password"
-                  id="password"
-                  name="passwd"
-                  placeholder="Ingresa tu contraseña"
-                  required
-                  onChange={handlePasswd}
-                />
-
-                <button type="submit">Iniciar sesión</button>
-              </form>
-            </div>
-
-          ) : (
-            <div className="error">
-              <h1>Acceso Negado</h1>
-              <p>Corrobora tus credenciales.</p>
-              <button onClick={() => setShForm(prev => !prev)}>Cerrar</button>
-            </div>
-        ) }
-      </main>
-
-      <footer className="footer">
-        <strong>
-          <p>Contacto: info@alquileres-tauro.com | Tel: +52 123 456 7890</p>
-          <p><a href="#">Términos y Condiciones</a></p>
-        </strong>
-      </footer>
-    </div>
-
-
+      ) : (
+        <div className="error">
+          <h1>Acceso Negado</h1>
+          <p>Corrobora tus credenciales.</p>
+          <button onClick={() => setShForm(prev => !prev)}>Cerrar</button>
+        </div>
+      )}
+    </DefaultLayout>
 
   );
 }

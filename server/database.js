@@ -37,5 +37,5 @@ export async function authUser(nombre, passwd) {
         WHERE NOMBREUSR = '${nombre}'
         AND PASSWDUSR = '${passwd}'
     `);
-    return rows;
+    return rows[0];
 }

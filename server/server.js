@@ -20,9 +20,16 @@ app.post("/register", async (req, res) => {
   res.status(201).send(createdUser);
 });
 //Login de un usuario -> Tiene que pasar la contraseña encriptada con sha256 para compararlas
-app.get("/login", async (req, res) => {
+app.post("/login", async (req, res) => {
   const {nombre, passwd} = req.body;
   const encryptedPasswd = CryptoJS.SHA256(passwd).toString();
+
   const user = await authUser(nombre, encryptedPasswd);
-  res.status(200).send(user);
+  if(user){
+    res.status(201).send(user);
+    console.log(`Usuario ${user.NOMBREUSR} autenticado`);
+  }else{
+    res.status(401).json({message: "Usuario o contraseña incorrectos"});
+    console.log("Acceso negado");
+  }
 });

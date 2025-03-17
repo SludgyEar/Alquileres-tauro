@@ -41,6 +41,7 @@ index.css
 App.test.js
 *.json
 test.jsx
+test.css
 # production
 /build
 # misc

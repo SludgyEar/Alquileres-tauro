@@ -49,6 +49,7 @@ CREATE TABLE Productos (
     stock INT NOT NULL,
     precioUnitario NUMERIC(10, 2) NOT NULL
 );
+Select * from Productos;
 
 -- Crear la tabla DetalleAlquileres
 CREATE TABLE DetalleAlquileres (

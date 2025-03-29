@@ -1,15 +1,15 @@
-import "../styles/defaultLayout.css";
-
+import '../styles/defaultLayout.css';
 export default function DefaultLayout({ children }) {
+
     return (
-        <div>
-            <header className="header">
-                <div className="logo"><h1>Alquileres Tauro</h1></div>
+        <div className="container-default-layout">
+            <header className="header-default-layout">
+                <h1>Alquileres Tauro</h1>
             </header>
-            <main className="main">
+            <main className='main-default-layout'>
                 {children}
             </main>
-            <footer className="footer">
+            <footer className="footer-default-layout">
                 <strong>
                     <p>Alquileres Tauro: 442-123-4567</p>
                     <p>Términos y Condiciones</p>

@@ -1,107 +1,62 @@
 .inventario-container {
     background-color: #fff;
-}
-
-.left-panel-inv {
-    background-color: #D5E8F6;
-    padding: 1rem;
-    border-radius: 8px;
-    height: 600px;
-    width: 450px;
-}
-
-.inv-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.input-wrapper {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    height: 50px;
     width: 100%;
-}
-
-.inv-form label {
-    font-weight: bold;
-    margin-bottom: 0.25rem;
-}
-
-.input-wrapper select {
-    width: 150px;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    display: block;
-}
-
-.input-wrapper input {
-    width: 20%;
-    height: 25px;
-}
-
-#cargar-inv {
-    padding: 0.75rem;
-    border: none;
-    border-radius: 4px;
-    background-color: #50b5a6;
-    color: #000;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-#reset-inv {
-    padding: 0.75rem;
-    border: none;
-    border-radius: 4px;
-    background-color: #5ba5d0;
-    color: #000;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-/*
-    Rigth Panel
-*/
-
-.right-panel-inv {
-    display: flex;
-    flex-direction: column;
-    background-color: #EEEEEE;
-    padding: 1rem;
-    border-radius: 8px;
-    height: 600px;
-    width: 450px;
-}
-
-.right-panel-inv textarea {
-    width: 300px;
-    height: 300px;
-    resize: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 0.5rem;
-    font-size: 1rem;
-    background-color: #f9f9f9;
-}
-
-.sh-resumen {
+    height: 100%;
+    background-color: aquamarine;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    width: 400px;
-    height: 400px;
-    flex-shrink: 0;
+    justify-content: center;
+    
 }
 
-.total-wrapper {
+.inv-table{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.inv-table table {
+    width: 100%;
+    height: 100%;
+}
+.inv-table th,
+.inv-table td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+    width: calc(100% / 3);
+}
+
+.confirm-inv-button{
+    width: 70px;
+    height: 45px;
+    background-color: #d9bbbb;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.inv-bottom-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 350px;
+    background-color: #7c1515;
+    flex-direction: column;
+    position: relative;
+}
+
+.inv-bottom-container button {
     width: 100px;
-    height: 80px;
+    height: 55px;
+    top: 0 ;
+    left: 0 ;
+    position: absolute;
 }

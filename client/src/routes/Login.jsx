@@ -13,7 +13,7 @@ function Login() {
     if (auth.isAuth) {
       navigate("/dashboard");
     }
-  }, [auth.isAuth, navigate]);
+  }, [auth.isAuth, auth.isAdmin, auth.user, navigate]);
 
   const [nombre, setNombre] = useState("");
   const handleNombre = (e) => {
@@ -31,6 +31,9 @@ function Login() {
       if(res.status === 201){
         auth.handleUser(res.data);
         auth.handleAuth(true);
+        if(res.data.ADMINUSR === '1'){
+          auth.handleSetAdmin(true);
+        }
       }
     } catch (err) {
       if (err.response && err.response.status === 401) {
@@ -47,7 +50,7 @@ function Login() {
         <div className="login-box">
           <h1>Iniciar Sesión</h1>
           <form onSubmit={handleLogin}>
-            <label htmlFor="username">username</label>
+            <label htmlFor="username">Username</label>
             <input
               type="text"
               id="username"

@@ -35,10 +35,6 @@ const router = createBrowserRouter([
     element: <Inventario/>
   },  // Ruta agregada provicionalmente para visualizar los cambios en el componente. No se muestra porque es parte de un menú
   {
-    path: '/default',
-    element: <DefaultLayout/>
-  },
-  {
     path: '/',
     element: <ProtectedRoute/>,
     children: [

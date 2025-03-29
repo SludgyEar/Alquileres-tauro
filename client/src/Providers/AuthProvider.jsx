@@ -5,6 +5,8 @@ const AuthContext = createContext({
     handleAuth: () => {},
     user: {},
     handleUser: () => {},
+    isAdmin: false,
+    handleSetAdmin: () => {},
 });
 
 export function AuthProvider({ children }) {
@@ -18,9 +20,14 @@ export function AuthProvider({ children }) {
     const handleUser = (user) => {
         setUser(user);
     };
+    // Manejo de administrador
+    const [isAdmin, setIsAdmin] = useState(false);
+    const handleSetAdmin = (state = true) => {
+        setIsAdmin(state);
+    };
 
     return(
-        <AuthContext.Provider value={{ isAuth, handleAuth, user, handleUser }}>
+        <AuthContext.Provider value={{ isAuth, handleAuth, user, handleUser, isAdmin, handleSetAdmin }}>
             {children}
         </AuthContext.Provider>
     );

@@ -9,3 +9,4 @@ ADD color varchar(30) default null;
 
 ALTER TABLE USUARIOS
 ADD adminUsr varchar(1) check(adminUsr in ('0','1'));
+Select * from usuarios;

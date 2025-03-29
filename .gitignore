@@ -36,11 +36,11 @@ yarn-error.log*
 /public
 reportWebVitals.js
 setupTests.js
-index.js
 index.css
 App.test.js
 *.json
 test.jsx
+test.css
 # production
 /build
 # misc

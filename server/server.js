@@ -41,46 +41,34 @@ app.post("/login", async (req, res) => {
 // Inserción de inventario
 
 app.post("/inventario", async (req, res) => {
-  const {mesa, silla, mantel, cubreMantel} = req.body;
-  console.log("Estoy en server.js");
-  if(mesa){
-    try {
-      const {mesas, stock} = mesa;
-      const inv = await increaseMesasStock(mesas, stock);
-      if(inv){
-        res.status(200).send(inv);
-      }
-    } catch (error) { res.status(400).send("Error al procesar la información"); }
-  }
-  else if(silla){
-    try {
-      const { sillas, stock } = silla;
-      const inv = await increaseSillasStock(sillas, stock);
-      if(inv){
-        res.status(200).send(inv); 
-      }
-    } catch (error) { res.status(400).send("Error al procesar la información"); }
-  }
+  // const {mesa, silla, mantel, cubreMantel} = req.body;
+  console.log("Entra a server.js")
+  const {inv} = req.body;
+  try{
+    for(const objeto of inv){
+        if(objeto.tipo === 'mesa'){
+          const {mesas, stock} = objeto;
+          await increaseMesasStock(mesas, stock);
 
-  else if(mantel){
-    try {
-      const { manteles, stock, colorManteles } = mantel;
-      const inv = await increaseMantelesStock(manteles, stock, colorManteles);
-      if(inv){
-        res.status(200).send(inv); 
-      }
-    } catch (error) { res.status(400).send("Error al procesar la información"); }
-  }
-  else if(cubreMantel){
-    try {
-      const { cubreManteles, stock, colorCubreManteles } = cubreMantel;
-      const inv = await increaseCubreMantelesStock(cubreManteles, stock, colorCubreManteles);
-      if(inv){
-        res.status(200).send(inv); 
-      }
-    } catch (error) { res.status(400).send("Error al procesar la información"); }
-  }
-  else{
-    res.status(400).send("No se ha enviado información");
-  }
+        }
+        else if(objeto.tipo === 'silla'){
+          const { sillas, stock } = objeto;
+          await increaseSillasStock(sillas, stock);
+
+        }
+        else if(objeto.tipo === 'mantel'){
+          const { manteles, stock, colorManteles } = objeto;
+          await increaseMantelesStock(manteles, stock, colorManteles);
+
+        }
+        else if(objeto.tipo === 'cubreMantel'){
+          const { cubreManteles, stock, colorCubreManteles } = objeto;
+          await increaseCubreMantelesStock(cubreManteles, stock, colorCubreManteles);
+
+        }
+        else{ console.log("No se ha podido procesar el objeto" + objeto.tipo); }
+      
+    }
+    res.status(200).send("Inventario actualizado");
+  } catch (err) { res.status(400).send("Error al procesar la información"); }
 });

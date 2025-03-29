@@ -11,7 +11,7 @@ INSERT INTO PRODUCTOS (tipo, stock, precioUnitario) VALUES ('mesa-redonda', 0, 1
 -- Sillas
 INSERT INTO PRODUCTOS (tipo, stock, precioUnitario) VALUES ('silla-negra', 0, 10);
 INSERT INTO PRODUCTOS (tipo, stock, precioUnitario) VALUES ('silla-cromada', 0, 10);
--- Manteles
+-- Manteles LISOS
 INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color) VALUES ('manteles', 0, 10, 'blanco');
 INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color) VALUES ('manteles', 0, 10, 'negro');
 INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color) VALUES ('manteles', 0, 10, 'dorado');
@@ -21,7 +21,7 @@ INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color) VALUES ('manteles', 0
 INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color) VALUES ('manteles', 0, 10, 'rojo');
 INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color) VALUES ('manteles', 0, 10, 'naranja');
 INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color) VALUES ('manteles', 0, 10, 'morado');
--- Cubre Manteles
+-- Cubre Manteles LISOS
 INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color) VALUES ('cubre-manteles', 0, 10, 'blanco');
 INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color) VALUES ('cubre-manteles', 0, 10, 'negro');
 INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color) VALUES ('cubre-manteles', 0, 10, 'dorado');
@@ -31,6 +31,31 @@ INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color) VALUES ('cubre-mantel
 INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color) VALUES ('cubre-manteles', 0, 10, 'rojo');
 INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color) VALUES ('cubre-manteles', 0, 10, 'naranja');
 INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color) VALUES ('cubre-manteles', 0, 10, 'morado');
+-- Textura
+-- Manteles textura
+INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color, textura) VALUES ('manteles', 0, 10, 'blanco', 'textura');
+INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color, textura) VALUES ('manteles', 0, 10, 'negro', 'textura');
+INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color, textura) VALUES ('manteles', 0, 10, 'dorado', 'textura');
+INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color, textura) VALUES ('manteles', 0, 10, 'plata', 'textura');
+INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color, textura) VALUES ('manteles', 0, 10, 'azul-cielo', 'textura');
+INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color, textura) VALUES ('manteles', 0, 10, 'azul-marino', 'textura');
+INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color, textura) VALUES ('manteles', 0, 10, 'rojo', 'textura');
+INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color, textura) VALUES ('manteles', 0, 10, 'naranja', 'textura');
+INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color, textura) VALUES ('manteles', 0, 10, 'morado', 'textura');
+-- Cubre Manteles textura
+INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color, textura) VALUES ('cubre-manteles', 0, 10, 'blanco', 'textura');
+INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color, textura) VALUES ('cubre-manteles', 0, 10, 'negro', 'textura');
+INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color, textura) VALUES ('cubre-manteles', 0, 10, 'dorado', 'textura');
+INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color, textura) VALUES ('cubre-manteles', 0, 10, 'plata', 'textura');
+INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color, textura) VALUES ('cubre-manteles', 0, 10, 'azul-cielo', 'textura');
+INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color, textura) VALUES ('cubre-manteles', 0, 10, 'azul-marino', 'textura');
+INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color, textura) VALUES ('cubre-manteles', 0, 10, 'rojo', 'textura');
+INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color, textura) VALUES ('cubre-manteles', 0, 10, 'naranja', 'textura');
+INSERT INTO PRODUCTOS (tipo, stock, precioUnitario, color, textura) VALUES ('cubre-manteles', 0, 10, 'morado', 'textura');
+
+UPDATE PRODUCTOS
+SET textura = 'liso'
+WHERE TIPO = 'CUBRE-MANTELES';
 
 UPDATE PRODUCTOS
 SET STOCK = STOCK + 2
@@ -38,4 +63,7 @@ WHERE TIPO = 'MESA-REDONDA';
 
 UPDATE PRODUCTOS
 SET STOCK = 0
-WHERE TIPO = 'MESA-RECTANGULAR';
+WHERE TIPO = 'MESA-REDONDA';
+
+UPDATE PRODUCTOS
+SET STOCK = 0;

@@ -3,168 +3,150 @@ import '../styles/inventario.css';
 
 const Inventario = () => { 
 
-    const [mesa, setMesa] = useState({});
-    const handleSetTipoMesa = (e) => {
-        setMesa(prev => ({ prev, [e.target.name]: e.target.value }));
+    const [mesa, setMesa] = useState({
+        tipo: 'mesa',
+        mesas: "mesa-rectangular",
+        stock: 0
+    });
+    const handleSetMesa = (e) => {
+        setMesa(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
-    const handleSetCantidadMesa = (e) => {
-        setMesa(prev => ({ prev, [e.target.name]: e.target.value }));
-    };
-
-    const [silla, setSilla] = useState({});
-    const handleSetTipoSilla = (e) => {
-        setSilla(prev => ({ prev, [e.target.name]: e.target.value }));
-    };
-    const handleSetCantidadSilla = (e) => {
-        setSilla(prev => ({ prev, [e.target.name]: e.target.value }));
-    };
-
-    const [mantel, setMantel] = useState({});
-    const handleSetTipoMantel = (e) => {
-        setMantel(prev => ({ prev, [e.target.name]: e.target.value }));
-    };
-    const handleSetCantidadMantel = (e) => {
-        setMantel(prev => ({ prev, [e.target.name]: e.target.value }));
-    };
-    const handleSetColorMantel = (e) => {
-        setMantel(prev => ({ prev, [e.target.name]: e.target.value }));
-    };
-
-    const [cubre, setCubre] = useState({});
-    const handleSetTipoCubre = (e) => {
-        setCubre(prev => ({ prev, [e.target.name]: e.target.value }));
-    };
-    const handleSetCantidadCubre = (e) => {
-        setCubre(prev => ({ prev, [e.target.name]: e.target.value }));
-    };
-    const handleSetColorCubre = (e) => {
-        setCubre(prev => ({ prev, [e.target.name]: e.target}));
-    };
-
-    const handleResumeInv = (e) => {    // Función que agrupa el contenido de tres arreglos: inv, piezas y color{color mantel, color cubre mantel}
+    const handleInvSubmit = async (e) => {    // Se cambiara a un submit general
         e.preventDefault();
         try {
-            // inv es un objeto con los valores seleccionados: mesa, silla, mantel, colorMantel
-            // piezas es un objeto con las cantidades de cada producto
-            // Debe de colocar el contenido del inv a ingresar en el textArea
-            let textArea = document.getElementById('resumen-inv');
-            textArea.value = "Productos: \n";
-            textArea.value += `Tipo de Mesa: ${mesa['mesa']} \n`;
-            textArea.value += `Cantidad de Mesas: ${mesa['mesa-cantidad']} \n`;
-            textArea.value += `Tipo de Silla: ${silla['silla']} \n`;
-            textArea.value += `Cantidad de Sillas: ${silla['silla-cantidad']} \n`;
-            textArea.value += `Tipo de Mantel: ${mantel['mantel']} \n`;
-            textArea.value += `Cantidad de Manteles: ${mantel['mantel-cantidad']} \n`;
-            textArea.value += `Color de Mantel: ${mantel['color mantel']} \n`;
-            textArea.value += `Tipo de Cubre Mantel: ${cubre['cubre mantel']} \n`;
-            textArea.value += `Cantidad de Cubre Manteles: ${cubre['cubreMantel-cantidad']} \n`;
-            textArea.value += `Color de Cubre Mantel: ${cubre['color cubre mantel']} \n`;
+            const inv = [mesa, silla, mantel, cubreMantel];
+            const res = await axios.post("http://localhost:8000/inventario", { inv });
+            if (res.status === 200) {
+                setMesa({ tipo: 'mesa', mesas: "mesa-rectangular", stock: 0 });
+                setSilla({ tipo: 'silla', sillas: "silla-negra", stock: 0 });
+                setMantel({ tipo: 'mantel', manteles: "liso", stock: 0, colorManteles: "blanco" });
+                setCubreMantel({ tipo: 'cubreMantel', cubreManteles: "liso", stock: 0, colorCubreManteles: "blanco" });
 
-            for(const key in mesa){
-                textArea.value += `${key}: ${mesa[key]} \n`;
-            }
+                const cantMesasInput = document.getElementById("cantidad-mesas");
+                const cantSillasInput = document.getElementById("cantidad-sillas");
+                const cantMantelesInput = document.getElementById("cantidad-manteles");
+                const cantCubreMantelesInput = document.getElementById("cantidad-cubre-manteles");
 
-        } catch (err) { }
+                cantMesasInput.value = "";
+                cantSillasInput.value = "";
+                cantMantelesInput.value = "";
+                cantCubreMantelesInput.value = "";
+            } else { console.log("Tristin"); }
+        }
+        catch (err) {
+            console.log({ err: err.message });
+        }
     };
 
-    const cleanTextArea = () =>{
-        let textArea = document.getElementById('resumen-inv');
-        textArea.value = '';
+    const [silla, setSilla] = useState({
+        tipo: 'silla',
+        sillas: "silla-negra",
+        stock: 0
+    });
+    const handleSetSilla = (e) => {
+        setSilla(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    const handleCargarInv = async (e) => {
-        e.preventDefault();
-        try{
-            
-        }catch(err){}
+    const [mantel, setMantel] = useState({
+        tipo: 'mantel',
+        manteles: "liso",
+        stock: 0,
+        colorManteles: "blanco"
+    });
+    const handleSetMantel = (e) => {
+        setMantel(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
+
+    const [cubreMantel, setCubreMantel] = useState({
+        tipo: 'cubreMantel',
+        cubreManteles: "liso",
+        stock: 0,
+        colorCubreManteles: "blanco"
+    });
+    const handleSetCubreMantel = (e) => {
+        setCubreMantel(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    };
+
+    /* Colores:
+        blanco
+        negro
+        dorado
+        plata
+        cielo
+        marino
+        rojo
+        naranja
+        morado
+    */
+
+    const productos = ["Mesa", "Silla", "Mantel",
+        "Color Mantel", "Cubre Mantel", "Color Cubre Mantel"];
+
+    const selectsBunch = [
+        <select name="mesas" id="mesas" onChange={handleSetMesa}>
+            <option value="mesa-rectangular" selected>Rectangular</option>
+            <option value="mesa-redonda">Redonda</option>
+        </select>,
+        <select name="sillas" id="sillas" onChange={handleSetSilla}>
+            <option value="silla-negra" selected>Negra</option>
+            <option value="silla-cromada">Cromada</option>
+        </select>,
+        <select name="manteles" id="manteles" onChange={handleSetMantel}>
+            <option value="liso" selected>Liso</option>
+            <option value="textura">Textura</option>
+        </select>,
+        <select name="colorManteles" id="color-manteles" onChange={handleSetMantel}>
+            <option value="blanco" selected>Blanco</option>
+            <option value="azul-cielo">Azul</option>
+            <option value="rojo">Rojo</option>
+        </select>,
+        <select name="cubreManteles" id="cubre-manteles" onChange={handleSetCubreMantel}>
+            <option value="liso" selected>Liso</option>
+            <option value="textura">Textura</option>
+        </select>,
+        <select name="colorCubreManteles" id="color-cubre-manteles" onChange={handleSetCubreMantel}>
+            <option value="blanco" selected>Blanco</option>
+            <option value="azul-cielo">Azul</option>
+            <option value="rojo">Rojo</option>
+        </select>
+    ];
+
+    const inputsBunch = [
+        <input type="number" id='cantidad-mesas' name='stock' min={0} step={1} onChange={handleSetMesa} />,
+        <input type="number" id='cantidad-sillas' name='stock' min={1} step={1} onChange={handleSetSilla} />,
+        <input type="number" id='cantidad-manteles' name='stock' min={1} step={1} onChange={handleSetMantel} />,
+        null,
+        <input type="number" id='cantidad-cubre-manteles' name='stock' min={1} step={1} onChange={handleSetCubreMantel} />,
+        null
+    ];
 
     return (
         <div className='inventario-container'>
-            <div className="left-panel-inv">
-                <form className='inv-form' onSubmit={handleResumeInv}>
-                    <label htmlFor="mesa-inv">Tipo de Mesa:</label>
-                    <div className="input-wrapper">
-                        <select id="mesa-inv" name='mesa' onChange={handleSetTipoMesa}>
-                            <option selected>Tipo de mesa</option>
-                            <option value="mesa-rectangular">Rectangular</option>
-                            <option value="mesa-redonda">Redonda</option>
-                        </select>
-                        <input type="text" className='cantidad' htmlFor="mesa" name='mesa-cantidad' onChange={handleSetCantidadMesa}/>
-                    </div>
-
-                    <label className="inv-label" htmlFor="silla">Tipo de Silla:</label>
-                    <div className="input-wrapper">
-                        <select className="sillas-select" id="silla" name='silla' onChange={handleSetTipoSilla} >
-                            <option selected>Tipo Silla</option>
-                            <option value="silla-negra">Silla Negra</option>
-                            <option value="silla-cromada">Silla Cromada</option>
-                        </select>
-                        <input type="text" className='cantidad' htmlFor="silla" name='silla-cantidad' onChange={handleSetCantidadSilla} />
-                    </div>
-
-                    <label htmlFor="mantel">Tipo de Mantel:</label>
-                    <div className="input-wrapper">
-                        <select className="manteles-select" name="mantel" id="mantel" onChange={handleSetTipoMantel}>
-                            <option selected>Tipo mantel</option>
-                            <option value="liso">Liso</option>
-                            <option value="textura">Textura</option>
-                        </select>
-                        <input type="text" className='cantidad' htmlFor="mantel" name='mantel-cantidad' onChange={handleSetCantidadMantel} />
-                    </div>
-
-                    <label htmlFor="colorMantel">Color de Mantel:</label>
-                    <div className="input-wrapper">
-                        <select className="color-mantel-select" name="color mantel" id="colorMantel" onChange={handleSetColorMantel}>
-                            <option selected>Color</option>
-                            <option value="blanco">Blanco</option>
-                            <option value="rojo">Rojo</option>
-                            <option value="azul">Azul</option>
-                        </select>
-                        {/* <input type="text" className='cantidad' htmlFor="colorMantel" name='colorMantel-cantidad' /> */}
-                    </div>
-
-                    <label htmlFor="colorMantel">Cubre Mantel:</label>
-                    <div className="input-wrapper">
-                        <select className="color-mantel-select" name="cubre mantel" id="cubreMantel" onChange={handleSetTipoCubre}>
-                            <option selected>Tipo</option>
-                            <option value="liso">Liso</option>
-                            <option value="detalle">Detalle</option>
-                        </select>
-                        <input type="text" className='cantidad' htmlFor="cubreMantel" name='cubreMantel-cantidad' onChange={handleSetCantidadCubre} />
-                    </div>
-
-                    <label htmlFor="colorCubreMantel">Color de Cubre Mantel:</label>
-                    <div className="input-wrapper">
-                        <select className="color-mantel-select" name="color cubre mantel" id="colorCubreMantel" onChange={handleSetColorCubre}>
-                            <option selected>Color</option>
-                            <option value="blanco">Blanco</option>
-                            <option value="rojo">Rojo</option>
-                            <option value="azul">Azul</option>
-                        </select>
-                        {/* <input type="text" className='cantidad' htmlFor="colorMantel" name='colorMantel-cantidad' /> */}
-                    </div>
-
-                    <div className="input-wrapper">
-                        <button id='cargar-inv' type='submit'>Cargar</button>
-                        <button id="reset-inv" type='reset' onClick={() => {
-                            setMesa({});
-                            setSilla({});
-                            setMantel({});
-                            setCubre({});
-                        }}>Limpiar</button>
-                    </div>
-
-                </form>
+            <h1>Inventario</h1>
+            <div className="inv-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Tipo</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {Array.isArray(productos) && productos.map((item, index) => (
+                            <tr key={index}>
+                                <td>{item}</td>
+                                <td> {selectsBunch[index]} </td>
+                                <td> {inputsBunch[index]} </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <button onClick={handleInvSubmit}>Agregar Inv</button>
             </div>
-            <div className="right-panel-inv">
-                <div className="sh-resumen">
-                    <textarea name="resumen-inv" id='resumen-inv' readOnly />
-                </div>
-                <div className="input-wrapper">
-                    <button id='cargar-inv' type='submit' >Cargar</button>
-                    <button id="reset-inv" type='reset' onClick={cleanTextArea}>Limpiar</button>
-                </div>
+            <div className="inv-bottom-container">
+                <button>New Object</button>
+                <textarea name="test" id="test" disabled></textarea>
             </div>
         </div>
     );

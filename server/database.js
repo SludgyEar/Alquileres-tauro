@@ -58,19 +58,25 @@ export async function increaseSillasStock(silla, stock) {
     return rows;
 }
 export async function increaseMantelesStock(mantel, stock, colorMantel) {
+    console.log("Entra a increaseMantelesStock");
+    console.log(mantel, stock, colorMantel);
     const [rows] = await pool.query(`
         UPDATE PRODUCTOS
         SET STOCK = STOCK + ?
-        WHERE TIPO = ?
+        WHERE TIPO = 'manteles'
+        AND TEXTURA = ?
         AND COLOR = ?
     `, [stock, mantel, colorMantel]);
     return rows;
 }
 export async function increaseCubreMantelesStock(cubreMantel, stock, colorCubreMantel) {
+    console.log("Entra a increaseCubreMantelesStock");
+    console.log(cubreMantel, stock, colorCubreMantel);
     const [rows] = await pool.query(`
         UPDATE PRODUCTOS
         SET STOCK = STOCK + ?
-        WHERE TIPO = ?
+        WHERE TIPO = 'cubre-manteles'
+        AND TEXTURA = ?
         AND COLOR = ?    
     `,[stock, cubreMantel, colorCubreMantel]);
     return rows;
